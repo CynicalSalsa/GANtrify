@@ -22,7 +22,7 @@ print("Random Seed: ", manualSeed)
 random.seed(manualSeed)
 torch.manual_seed(manualSeed)
 
-dataroot = "data/celeba"
+dataroot = "/home/sachin/GANtrify/dcgan/celeba"
 
 # Number of workers for dataloader
 workers = 2
@@ -55,7 +55,7 @@ beta1 = 0.5
 
 # Number of GPUs available. Use 0 for CPU mode.
 ngpu = 1
-
+ask = 70
 
 dataset = dset.ImageFolder(root=dataroot,
                            transform=transforms.Compose([
@@ -70,8 +70,6 @@ dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
 
 # Decide which device we want to run on
 device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu > 0) else "cpu")
-
-# Plot some training images
 real_batch = next(iter(dataloader))
 plt.figure(figsize=(8,8))
 plt.axis("off")
@@ -269,7 +267,6 @@ plt.axis("off")
 plt.title("Real Images")
 plt.imshow(np.transpose(vutils.make_grid(real_batch[0].to(device)[:64], padding=5, normalize=True).cpu(),(1,2,0)))
 
-# Plot the fake images from the last epoch
 plt.subplot(1,2,2)
 plt.axis("off")
 plt.title("Fake Images")
